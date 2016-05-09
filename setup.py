@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '0.0.1'
+version = '0.0.2'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
