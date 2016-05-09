@@ -120,31 +120,32 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
-h = HotRC()
-args = sys.argv[1:]
+def start():
+    h = HotRC()
+    args = sys.argv[1:]
 
-# Case 1: Create a new alias.
-if args[0] == 'new':
-    if len(args) == 3:
-        h.create_alias(args[1], args[2])
-    else:
-        key = str(raw_input("Alias Key: "))
-        value = str(raw_input("Alias Value: "))
-        h.create_alias(key, value)
-# Case 2: Remove an old alias.
-elif args[0] == 'remove':
-    if len(args) == 3:
-        h.remove_alias(args[1], args[2])
-    else:
-        key = str(raw_input("Alias Key: "))
-        value = str(raw_input("Alias Value: "))
-        h.remove_alias(key, value)
-# Case 3: List all defined aliases.
-elif args[0] == 'list':
-    print("\nAll Aliases")
-    print("Key\tValue")
-    print("===\t=====\n")
-    for key, value in h.ALIASES.items():
-        s = key + '\t' + value
-        print(s)
-    print('')
+    # Case 1: Create a new alias.
+    if args[0] == 'new':
+        if len(args) == 3:
+            h.create_alias(args[1], args[2])
+        else:
+            key = str(raw_input("Alias Key: "))
+            value = str(raw_input("Alias Value: "))
+            h.create_alias(key, value)
+    # Case 2: Remove an old alias.
+    elif args[0] == 'remove':
+        if len(args) == 3:
+            h.remove_alias(args[1], args[2])
+        else:
+            key = str(raw_input("Alias Key: "))
+            value = str(raw_input("Alias Value: "))
+            h.remove_alias(key, value)
+    # Case 3: List all defined aliases.
+    elif args[0] == 'list':
+        print("\nAll Aliases")
+        print("Key\tValue")
+        print("===\t=====\n")
+        for key, value in h.ALIASES.items():
+            s = key + '\t' + value
+            print(s)
+        print('')

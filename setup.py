@@ -14,14 +14,13 @@ except:
 setup(
     name = 'HotRC',
     version = version,
-    packages = find_packages('src'),
+    packages = find_packages(),
     url = 'https://github.com/konstantinfarrell/hotrc',
     license = 'BSD',
     description = description,
     long_description = long_description,
     author = 'Konstantin Farrell',
     author_email = 'konstantinfarrell@gmail.com',
-    package_dir = {'': 'src'},
     install_requires = ['setuptools'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
