@@ -4,6 +4,9 @@ Hotrc is a nice little script that lets you add an alias to your .bashrc file.
 
 ## Run
 
+When you run initially, you will be prompted for the location of your `.bashrc` file.
+Any active, absolute path to a bash configuration file will suffice.
+
 The script can be run with 2 arguments. either `new` or `remove`.
 These can optionally be followed by the `[key]`, `[value]` pair you would like to define.
 
