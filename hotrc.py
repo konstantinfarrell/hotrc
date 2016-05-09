@@ -133,3 +133,11 @@ elif args[0] == 'remove':
         key = str(raw_input("Alias Key: "))
         value = str(raw_input("Alias Value: "))
         h.remove_alias(key, value)
+elif args[0] == 'list':
+    print("\nAll Aliases")
+    print("Key\tValue")
+    print("===\t=====\n")
+    for key, value in h.ALL_ALIASES.items():
+        s = key + '\t' + value
+        print(s)
+    print('')
