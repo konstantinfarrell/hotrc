@@ -20,7 +20,7 @@ class HotRC(object):
         except IOError as e:
             info = open('info','w')
             print("Bashrc not found. Specify path to bashrc.")
-            bashrc = str(raw_input('BASHRC_PATH: '))
+            bashrc = str(input('BASHRC_PATH: '))
             self.BASHRC = bashrc
             info.write(bashrc)
 
@@ -129,16 +129,16 @@ def start():
         if len(args) == 3:
             h.create_alias(args[1], args[2])
         else:
-            key = str(raw_input("Alias Key: "))
-            value = str(raw_input("Alias Value: "))
+            key = str(input("Alias Key: "))
+            value = str(input("Alias Value: "))
             h.create_alias(key, value)
     # Case 2: Remove an old alias.
     elif args[0] == 'remove':
         if len(args) == 3:
             h.remove_alias(args[1], args[2])
         else:
-            key = str(raw_input("Alias Key: "))
-            value = str(raw_input("Alias Value: "))
+            key = str(input("Alias Key: "))
+            value = str(input("Alias Value: "))
             h.remove_alias(key, value)
     # Case 3: List all defined aliases.
     elif args[0] == 'list':
