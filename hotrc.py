@@ -10,24 +10,55 @@ class HotRC(object):
     def __init__(self, *args, **kwargs):
         self.ALL_ALIASES = self.get_aliases()
 
+    def get_info(self):
+        try:
+            info = open('info', 'r')
+            self.BASHRC = info.readline()
+            info.close()
+        except IOError as e:
+            info = open('info','w')
+            print("Bashrc not found. Specify path to bashrc.")
+            bashrc = str(raw_input('BASHRC_PATH: '))
+            self.BASHRC = bashrc
+            info.write(bashrc)
+            info.close()
+
+    def get_aliases(self):
+        self.get_info()
+        contents = self.read_bashrc().split('\n')
+
+        aliases = dict()
+        for line in contents:
+            if line.startswith('alias'):
+                line = line.replace('alias ', '')
+                definition = line.split('=')
+                aliases[definition[0]] = definition[1]
+        return aliases
+
     def create_alias(self, key, value):
         if value[0] is not "'" or value[0] is not '"':
             value = '"' + value + '"'
         try:
             if self.ALL_ALIASES[key] is not None:
                 self.ALL_ALIASES[key] = value
-                self.ALIASES[key] = value
         except KeyError:
             self.ALL_ALIASES[key] = value
-            self.ALIASES[key] = value
             self.write_to_bashrc(key, value)
 
     def read_bashrc(self):
         return open(self.BASHRC, 'r').read()
 
+    def remove_alias(self, key, value):
+        bashrc = self.read_bashrc()
+        command = "alias "+str(key)+"=\""+str(value)+"\""
+        if command in bashrc:
+            bashrc = bashrc.replace(command, '')
+        with open(self.BASHRC, 'w') as f:
+            f.write(bashrc)
+
     def write_to_bashrc(self, key, value):
         command = "alias "+str(key)+"="+str(value)
-        with self.read_bashrc() as file:
+        with open(self.BASHRC, 'r') as file:
             contents = file.read()
             if "# HOTRC" not in contents:
                 file.close()
@@ -43,8 +74,7 @@ class HotRC(object):
         bashrc.write(contents)
 
     def get_index_range_of_definitions(self):
-        bashrc = self.read_bashrc()
-        bashrc = bashrc.split('\n')
+        bashrc = self.read_bashrc().split('\n')
         start = None
         end = None
         for line in bashrc:
@@ -61,35 +91,10 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
-    def get_aliases(self):
-        try:
-            info = open('info', 'r')
-            bashrc = info.readline()
-            self.BASHRC = bashrc
-            info.close()
-        except IOError as e:
-            info = open('info','w')
-            print("Bashrc not found. Specify path to bashrc.")
-            bashrc = str(raw_input('BASHRC_PATH: '))
-            self.BASHRC = bashrc
-            info.write(bashrc)
-            info.close()
-
-        bashrc = open(bashrc, 'r')
-        contents = bashrc.read().split('\n')
-
-        aliases = dict()
-        for line in contents:
-            if line.startswith('alias'):
-                line = line.replace('alias ', '')
-                definition = line.split('=')
-                aliases[definition[0]] = definition[1]
-        return aliases
-
 
 h = HotRC()
-print(h.get_index_range_of_definitions())
 args = sys.argv[1:]
+
 if args[0] == 'new':
     if len(args) > 1:
         h.create_alias(args[1], args[2])
@@ -97,5 +102,11 @@ if args[0] == 'new':
         key = str(raw_input("Alias Key: "))
         value = str(raw_input("Alias Value: "))
         h.create_alias(key, value)
-elif args[1] == 'remove':
-    pass
+elif args[0] == 'remove':
+    if len(args) > 1:
+        h.remove_alias(args[1], args[2])
+    else:
+        key = str(raw_input("Alias Key: "))
+        value = str(raw_input("Alias Value: "))
+        h.remove_alias(key, value)
+
