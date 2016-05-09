@@ -1,4 +1,4 @@
 .PHONY: install run
 
 run:
-	.env/bin/python hotrc.py
+	.env/bin/python __init__.py
