@@ -3,7 +3,6 @@
 import sys
 
 class HotRC(object):
-    ALIASES = dict()
     ALL_ALIASES = dict()
     BASHRC = ''
 
@@ -11,6 +10,10 @@ class HotRC(object):
         self.ALL_ALIASES = self.get_aliases()
 
     def get_info(self):
+        """
+        Parse the info file for `.bashrc` location
+        or prompt the user for input.
+        """
         try:
             info = open('info', 'r')
             self.BASHRC = info.readline()
@@ -24,6 +27,9 @@ class HotRC(object):
             info.close()
 
     def get_aliases(self):
+        """
+        Read all the aliases from the `.bashrc` file
+        """
         self.get_info()
         contents = self.read_bashrc().split('\n')
 
@@ -36,6 +42,9 @@ class HotRC(object):
         return aliases
 
     def create_alias(self, key, value):
+        """
+        Create a new alias and write it out to the `.bashrc` file
+        """
         if value[0] is not "'" or value[0] is not '"':
             value = '"' + value + '"'
         try:
@@ -46,9 +55,15 @@ class HotRC(object):
             self.write_to_bashrc(key, value)
 
     def read_bashrc(self):
+        """
+        Read the entire `.bashrc` file.
+        """
         return open(self.BASHRC, 'r').read()
 
     def remove_alias(self, key, value):
+        """
+        Remove an alias from the `.bashrc` file if it exists.
+        """
         bashrc = self.read_bashrc()
         command = "alias "+str(key)+"=\""+str(value)+"\""
         if command in bashrc:
@@ -57,6 +72,10 @@ class HotRC(object):
             f.write(bashrc)
 
     def write_to_bashrc(self, key, value):
+        """
+        Format and write the key-value pair to the
+        `.bashrc` file.
+        """
         command = "alias "+str(key)+"="+str(value)
         with open(self.BASHRC, 'r') as file:
             contents = file.read()
@@ -74,6 +93,10 @@ class HotRC(object):
         bashrc.write(contents)
 
     def get_index_range_of_definitions(self):
+        """
+        Return the index of the `.bashrc` file where the
+        HOTRC definitions begin and end.
+        """
         bashrc = self.read_bashrc().split('\n')
         start = None
         end = None
@@ -91,10 +114,10 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
-
 h = HotRC()
 args = sys.argv[1:]
 
+# Case 1: Create a new alias.
 if args[0] == 'new':
     if len(args) > 1:
         h.create_alias(args[1], args[2])
@@ -102,6 +125,7 @@ if args[0] == 'new':
         key = str(raw_input("Alias Key: "))
         value = str(raw_input("Alias Value: "))
         h.create_alias(key, value)
+# Case 2: Remove an old alias.
 elif args[0] == 'remove':
     if len(args) > 1:
         h.remove_alias(args[1], args[2])
@@ -109,4 +133,3 @@ elif args[0] == 'remove':
         key = str(raw_input("Alias Key: "))
         value = str(raw_input("Alias Value: "))
         h.remove_alias(key, value)
-
