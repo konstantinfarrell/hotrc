@@ -22,16 +22,19 @@ class HotRC(object):
             self.ALIASES[key] = value
             self.write_to_bashrc(key, value)
 
+    def read_bashrc(self):
+        return open(self.BASHRC, 'r').read()
+
     def write_to_bashrc(self, key, value):
         command = "alias "+str(key)+"="+str(value)
-        with open(self.BASHRC, 'r') as file:
+        with self.read_bashrc() as file:
             contents = file.read()
             if "# HOTRC" not in contents:
                 file.close()
                 contents = open(self.BASHRC, 'a')
                 contents.write("\n# HOTRC\n")
                 contents.close()
-                contents = open(self.BASHRC, 'r').read()
+                contents = self.read_bashrc()
         contents = contents.split('\n')
         d_range = self.get_index_range_of_definitions()
         contents.insert(d_range[1], command)
@@ -40,7 +43,7 @@ class HotRC(object):
         bashrc.write(contents)
 
     def get_index_range_of_definitions(self):
-        bashrc = open(self.BASHRC, 'r').read()
+        bashrc = self.read_bashrc()
         bashrc = bashrc.split('\n')
         start = None
         end = None
@@ -94,4 +97,5 @@ if args[0] == 'new':
         key = str(raw_input("Alias Key: "))
         value = str(raw_input("Alias Value: "))
         h.create_alias(key, value)
-
+elif args[1] == 'remove':
+    pass
