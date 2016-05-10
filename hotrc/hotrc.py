@@ -124,33 +124,33 @@ class HotRC(object):
 def start():
     h = HotRC()
     args = sys.argv[1:]
-
-    # Case 1: Create a new alias.
-    if args[0] == 'new':
-        if len(args) == 3:
-            h.create_alias(args[1], args[2])
-        else:
-            key = str(input("Alias Key: "))
-            value = str(input("Alias Value: "))
-            h.create_alias(key, value)
-    # Case 2: Remove an old alias.
-    elif args[0] == 'remove':
-        if len(args) == 3:
-            h.remove_alias(args[1], args[2])
-        else:
-            key = str(input("Alias Key: "))
-            value = str(input("Alias Value: "))
-            h.remove_alias(key, value)
-    # Case 3: List all defined aliases.
-    elif args[0] == 'list':
-        print("\nAll Aliases")
-        print("Key\tValue")
-        print("===\t=====\n")
-        for key, value in h.ALIASES.items():
-            s = key + '\t' + value
-            print(s)
-        print('')
+    try:
+        # Case 1: Create a new alias.
+        if args[0] == 'new':
+            if len(args) == 3:
+                h.create_alias(args[1], args[2])
+            else:
+                key = str(input("Alias Key: "))
+                value = str(input("Alias Value: "))
+                h.create_alias(key, value)
+        # Case 2: Remove an old alias.
+        elif args[0] == 'remove':
+            if len(args) == 3:
+                h.remove_alias(args[1], args[2])
+            else:
+                key = str(input("Alias Key: "))
+                value = str(input("Alias Value: "))
+                h.remove_alias(key, value)
+        # Case 3: List all defined aliases.
+        elif args[0] == 'list':
+            print("\nAll Aliases")
+            print("Key\tValue")
+            print("===\t=====\n")
+            for key, value in h.ALIASES.items():
+                s = key + '\t' + value
+                print(s)
+            print('')
     # Case 4: User doesn't add arguments.
-    else:
+    except IndexError as e:
         print('Error: No Arguments.\nPlease run with arguments.\nAccepted arguments are:\n\thotrc new [key] [value]\n\thotrc remove [key] [value]\n\thotrc list\n')
 start()
