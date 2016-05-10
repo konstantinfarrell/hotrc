@@ -152,5 +152,5 @@ def start():
             print('')
     # Case 4: User doesn't add arguments.
     except IndexError as e:
-        print('Error: No Arguments.\nPlease run with arguments.\nAccepted arguments are:\n\thotrc new [key] [value]\n\thotrc remove [key] [value]\n\thotrc list\n')
+        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted arguments are:\n\n\thotrc new [key] [value]\n\thotrc remove [key] [value]\n\thotrc list\n')
 start()

@@ -12,7 +12,7 @@ class PostInstall(install):
         subprocess.call(path, shell=True)
 
 
-version = '0.0.9'
+version = '0.1.0'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
@@ -34,7 +34,7 @@ setup(
     install_requires = ['setuptools'],
     cmdclass = {'install': PostInstall},
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
