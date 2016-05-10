@@ -13,7 +13,7 @@ class PostInstall(install):
         subprocess.call(['source ~/.bashrc'], shell=True)
 
 
-version = '0.1.2'
+version = '0.1.3'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
