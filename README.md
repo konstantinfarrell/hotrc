@@ -17,8 +17,17 @@ Any active, absolute path to a bash configuration file will suffice.
 
 The script can be run with 3 arguments. either `new`, `remove`, or 'list'.
 The first two can optionally be followed by the `[key]`, `[value]` pair you would like to define.
+For example:
 
     hotrc new
     hotrc new home 'cd /home'
 
 If you do not supply a `[key]`, `[value]` pair as arguments you will be prompted.
+
+The following commands are accepted:
+
+    hotrc new
+    hotrc new [key] [value]
+    hotrc remove
+    hotrc remove [key] [value]
+    hotrc list
