@@ -29,5 +29,6 @@ The following commands are accepted:
     hotrc new/add
     hotrc new/add [key] [value]
     hotrc rm/remove
+    hotrc rm/remove [key]
     hotrc rm/remove [key] [value]
     hotrc list

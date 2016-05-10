@@ -63,14 +63,20 @@ class HotRC(object):
         """
         return open(self.BASHRC, 'r').read()
 
-    def remove_alias(self, key, value):
+    def remove_alias(self, key, value=None):
         """
         Remove an alias from the `.bashrc` file if it exists.
         """
-        bashrc = self.read_bashrc()
-        command = "alias "+str(key)+"=\""+str(value)+"\""
-        if command in bashrc:
-            bashrc = bashrc.replace(command, '')
+
+        bashrc = self.read_bashrc().split('\n')
+        if value == None:
+            command = "alias "+str(key)+"="
+        else:
+            command = "alias "+str(key)+"=\""+str(value)+"\""
+        for line in bashrc:
+            if command in line:
+                del bashrc[bashrc.index(line)]
+        bashrc = '\n'.join(bashrc)
         with open(self.BASHRC, 'w') as f:
             f.write(bashrc)
 
@@ -122,6 +128,7 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
+
 def start():
     h = HotRC()
     args = sys.argv[1:]
@@ -136,8 +143,11 @@ def start():
                 h.create_alias(key, value)
         # Case 2: Remove an old alias.
         elif args[0] == 'remove' or args[0] == 'rm':
-            if len(args) == 3:
-                h.remove_alias(args[1], args[2])
+            if len(args) > 1:
+                try:
+                    h.remove_alias(args[1], args[2])
+                except IndexError as e:
+                    h.remove_alias(args[1])
             else:
                 key = str(input("Alias Key: "))
                 value = str(input("Alias Value: "))
@@ -155,4 +165,5 @@ def start():
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
     subprocess.call(['source '+h.BASHRC], shell=True)
+
 start()
