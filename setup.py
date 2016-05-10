@@ -1,8 +1,18 @@
 import os
+import sys
+import subprocess
 from setuptools import setup, find_packages
+from setuptools.command.install import install
+
+class PostInstall(install):
+    def run(self):
+        install.run(self)
+        path = sys.path[0] + '/hotrc/path.sh'
+        sys.path.append(sys.path[0])
+        subprocess.call(path, shell=True)
 
 
-version = '0.0.2'
+version = '0.0.4'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
@@ -22,6 +32,7 @@ setup(
     author = 'Konstantin Farrell',
     author_email = 'konstantinfarrell@gmail.com',
     install_requires = ['setuptools'],
+    cmdclass = {'install': PostInstall},
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',

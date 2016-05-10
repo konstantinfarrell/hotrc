@@ -29,7 +29,8 @@ class HotRC(object):
         Read all the aliases from the `.bashrc` file
         """
         # Get .bashrc location and read file contents.
-        self.get_info()
+        if self.BASHRC == '':
+            self.get_info()
         contents = self.read_bashrc().split('\n')
         aliases = dict()
         for line in contents:
