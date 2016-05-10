@@ -128,7 +128,6 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
-
 def start():
     h = HotRC()
     args = sys.argv[1:]
@@ -169,6 +168,6 @@ def start():
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
 
-    subprocess.call('exec bash', shell=True)
+    subprocess.Popen('source '+h.BASHRC, shell=True)
 
 start()
