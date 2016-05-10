@@ -126,7 +126,7 @@ def start():
     args = sys.argv[1:]
     try:
         # Case 1: Create a new alias.
-        if args[0] == 'new':
+        if args[0] == 'new' or args[0] == 'add':
             if len(args) == 3:
                 h.create_alias(args[1], args[2])
             else:
@@ -134,7 +134,7 @@ def start():
                 value = str(input("Alias Value: "))
                 h.create_alias(key, value)
         # Case 2: Remove an old alias.
-        elif args[0] == 'remove':
+        elif args[0] == 'remove' or args[0] == 'rm':
             if len(args) == 3:
                 h.remove_alias(args[1], args[2])
             else:
@@ -150,7 +150,7 @@ def start():
                 s = key + '\t' + value
                 print(s)
             print('')
-    # Case 4: User doesn't add arguments.
+    # Case Default: User doesn't add arguments.
     except IndexError as e:
-        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted arguments are:\n\n\thotrc new [key] [value]\n\thotrc remove [key] [value]\n\thotrc list\n')
+        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
 start()
