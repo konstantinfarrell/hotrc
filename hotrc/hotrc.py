@@ -16,10 +16,10 @@ class HotRC(object):
         or prompt the user for input.
         """
         try:
-            info = open('info', 'r')
+            info = open(os.path.dirname(__file__)+'/info', 'r')
             self.BASHRC = info.readline()
         except IOError as e:
-            info = open('info','w')
+            info = open(os.path.dirname(__file__)+'/info', 'w')
             print("Bashrc not found. Specify path to bashrc.")
             bashrc = str(input('BASHRC_PATH: '))
             self.BASHRC = bashrc
