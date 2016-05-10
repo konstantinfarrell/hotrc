@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys
+import sys, os
 import subprocess
 
 class HotRC(object):
@@ -39,7 +39,7 @@ class HotRC(object):
                 # Parse out all the lines beginning with 'alias'
                 # and return them in a dictionary.
                 line = line.replace('alias ', '')
-                definition = line.split('=')
+                definition = line.split('=', 1)
                 aliases[definition[0]] = definition[1]
 
         return aliases
@@ -165,7 +165,6 @@ def start():
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
 
-    path = sys.path[0] + '/hotrc/reload.sh'
-    subprocess.call(path, shell=True)
+    subprocess.call('exec bash', shell=True)
 
 start()
