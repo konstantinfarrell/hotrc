@@ -1,6 +1,6 @@
 # hotrc
 
-hotrc ("hot-RC") is a nice little script that lets you add or remove an alias to/from your `.bashrc` file.
+hotrc ("hot-are-see") is a nice little script that lets you add or remove an alias to/from your `.bashrc` file.
 
 ## Install
 
