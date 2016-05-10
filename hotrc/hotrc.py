@@ -150,3 +150,4 @@ def start():
             s = key + '\t' + value
             print(s)
         print('')
+start()
