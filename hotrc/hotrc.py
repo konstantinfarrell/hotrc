@@ -161,6 +161,10 @@ def start():
                 s = key + '\t' + value
                 print(s)
             print('')
+        # Case 4: Reset the bashrc file.
+        elif args[0] == 'reset':
+            os.remove(os.path.dirname(__file__)+'/info')
+            h.get_info()
     # Case Default: User doesn't add arguments.
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')

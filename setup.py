@@ -10,10 +10,10 @@ class PostInstall(install):
         path = sys.path[0] + '/hotrc/path.sh'
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
-        subprocess.call(['source ~/.bashrc'], shell=True)
+        subprocess.call(['exec bash'], shell=True)
 
 
-version = '0.1.5'
+version = '0.1.6'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
