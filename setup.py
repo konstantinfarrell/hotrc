@@ -10,6 +10,7 @@ class PostInstall(install):
         path = sys.path[0] + '/hotrc/path.sh'
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
+        subprocess.call(['source ~/.bashrc'], shell=True)
 
 
 version = '0.1.2'
