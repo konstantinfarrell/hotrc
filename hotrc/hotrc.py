@@ -150,4 +150,7 @@ def start():
             s = key + '\t' + value
             print(s)
         print('')
+    # Case 4: User doesn't add arguments.
+    else:
+        print('Error: No Arguments.\nPlease run with arguments.\nAccepted arguments are:\n\thotrc new [key] [value]\n\thotrc remove [key] [value]\n\thotrc list\n')
 start()
