@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import subprocess
 
 class HotRC(object):
     ALIASES = dict()
@@ -153,4 +154,5 @@ def start():
     # Case Default: User doesn't add arguments.
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
+    subprocess.call(['source '+h.BASHRC], shell=True)
 start()
