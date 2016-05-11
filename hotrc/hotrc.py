@@ -79,6 +79,7 @@ class HotRC(object):
         bashrc = '\n'.join(bashrc)
         with open(self.BASHRC, 'w') as f:
             f.write(bashrc)
+        subprocess.call([os.path.dirname(__file__)+'/unalias.sh '+key], shell=True)
 
     def write_to_bashrc(self, key, value):
         """
