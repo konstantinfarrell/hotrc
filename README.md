@@ -32,3 +32,4 @@ The following commands are accepted:
     hotrc rm/remove [key]
     hotrc rm/remove [key] [value]
     hotrc list
+    hotrc reset

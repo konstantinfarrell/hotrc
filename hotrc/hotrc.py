@@ -166,7 +166,7 @@ def start():
             h.get_info()
     # Case Default: User doesn't add arguments.
     except IndexError as e:
-        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [value]\n\thotrc list\n')
+        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [(optional) value]\n\thotrc list\n\thotrc reset\n')
 
     subprocess.Popen('source '+h.BASHRC, shell=True)
 
