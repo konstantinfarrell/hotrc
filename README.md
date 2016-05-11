@@ -9,7 +9,7 @@ Clone this repo into a local directory, and install.
 
     git clone https://github.com/konstantinfarrell/hotrc.git
     cd hotrc
-    python setup.py install
+    make
 
 ## Run
 
