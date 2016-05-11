@@ -24,12 +24,18 @@ For example:
 
 If you do not supply a `[key]`, `[value]` pair as arguments you will be prompted.
 
-The following commands are accepted:
+## API
 
-    hotrc new/add
-    hotrc new/add [key] [value]
-    hotrc rm/remove
-    hotrc rm/remove [key]
-    hotrc rm/remove [key] [value]
-    hotrc list
-    hotrc reset
+Syntax is structured as follows
+
+    hotrc <command> [arg1] [arg2]
+
+*Commands*
+
+- add: Takes 2 arguments, `key` and `value` and constructs a `.bashrc` alias for them.
+    If arguments arent provided, the user will be prompted for them.
+- list: Takes no arguments. Lists all current aliases in the `.bashrc`
+- new: Same as add.
+- remove: Takes 1 or 2 arguments: `key`, or `key` and `value`, and removes the corresponding alias from the `.bashrc` file.
+- reset: Deletes old entry and prompts the user for the path to the `.bashrc` file. Only absolute paths are accepted.
+- rm: Same as remove.
