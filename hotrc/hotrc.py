@@ -168,6 +168,4 @@ def start():
     except IndexError as e:
         print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [(optional) value]\n\thotrc list\n\thotrc reset\n')
 
-    subprocess.Popen('source '+h.BASHRC, shell=True)
-
 start()

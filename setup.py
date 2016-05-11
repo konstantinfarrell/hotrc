@@ -7,13 +7,14 @@ from setuptools.command.install import install
 class PostInstall(install):
     def run(self):
         install.run(self)
+        subprocess.call(sys.path[0]+'/hotrc/reload.sh')
         path = sys.path[0] + '/hotrc/path.sh'
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
-        subprocess.call(['exec bash'], shell=True)
+        subprocess.call(['source ~/.bashrc'], shell=True)
 
 
-version = '0.1.7'
+version = '0.1.8'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)

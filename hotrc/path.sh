@@ -8,3 +8,15 @@ if grep -Fxq "$ALIAS" $BASHRC
     else
         echo $ALIAS >> $BASHRC
 fi
+
+echo "export MY_PATH=$MY_PATH" >> $BASHRC
+
+RELOAD='finalize_auto_reload'
+if grep -Fxq "$RELOAD" $BASHRC
+    then
+        echo ".bashrc already contains reload call."
+    else
+        echo ". "$MY_PATH"/reload.sh" >> $BASHRC
+        echo $RELOAD >> $BASHRC
+fi
+
