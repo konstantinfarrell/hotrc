@@ -1,6 +1,7 @@
 # HotRC
 
-hotrc ("hot-are-see") is a nice little script that lets you add or remove an alias to/from your `.bashrc` file.
+hotrc ("hot-are-see") is a python based command line utility that lets you add or remove an alias to/from your `.bashrc` file
+without having to jump around between text editors, or restart the shell.
 
 ## Install
 
