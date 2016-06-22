@@ -1,9 +1,12 @@
 #!/usr/bin/env python
 
-import sys, os
+import os
+import sys
 import subprocess
 
+
 class HotRC(object):
+
     ALIASES = dict()
     BASHRC = ''
 
@@ -69,7 +72,7 @@ class HotRC(object):
         """
 
         bashrc = self.read_bashrc().split('\n')
-        if value == None:
+        if value is None:
             command = "alias "+str(key)+"="
         else:
             command = "alias "+str(key)+"=\""+str(value)+"\""
@@ -79,7 +82,8 @@ class HotRC(object):
         bashrc = '\n'.join(bashrc)
         with open(self.BASHRC, 'w') as f:
             f.write(bashrc)
-        subprocess.call([os.path.dirname(__file__)+'/unalias.sh '+key], shell=True)
+        script = '{}/unalias.sh {}'.format(os.path.dirname(__file__), key)
+        subprocess.call([script], shell=True)
 
     def write_to_bashrc(self, key, value):
         """
@@ -129,6 +133,7 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
+
 def start():
     h = HotRC()
     args = sys.argv[1:]
@@ -167,6 +172,14 @@ def start():
             h.get_info()
     # Case Default: User doesn't add arguments.
     except IndexError as e:
-        print('\nERROR: No Arguments.\nPlease run with arguments.\nAccepted syntax:\n\n\thotrc new/add [key] [value]\n\thotrc rm/remove [key] [(optional) value]\n\thotrc list\n\thotrc reset\n')
+        print('\nERROR: No Arguments.\n\
+                Please run with arguments.\n\
+                Accepted syntax:\n\
+                \n\thotrc new/add [key] [value]\n\
+                \thotrc rm/remove [key] [(optional) value]\n\
+                \thotrc list\n\
+                \thotrc reset\n')
 
-start()
+
+if __name__ == "__main__":
+    start()
