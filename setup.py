@@ -7,8 +7,8 @@ from setuptools.command.install import install
 class PostInstall(install):
     def run(self):
         install.run(self)
-        subprocess.call(sys.path[0]+'/hotrc/reload.sh')
-        path = sys.path[0] + '/hotrc/path.sh'
+        subprocess.call(os.path.join(sys.path[0], '/hotrc/reload.sh'))
+        path = os.path.join(sys.path[0], '/hotrc/path.sh')
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
         subprocess.call(['source ~/.bashrc'], shell=True)
