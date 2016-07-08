@@ -28,19 +28,19 @@ setup(
     version = version,
     packages = find_packages(),
     url = 'https://github.com/konstantinfarrell/hotrc',
-    license = 'BSD',
+    license = 'MIT',
     description = description,
     long_description = long_description,
     author = 'Konstantin Farrell',
     author_email = 'konstantinfarrell@gmail.com',
-    install_requires = ['setuptools'],
+    install_requires = ['setuptools', 'flake8'],
     cmdclass = {'install': PostInstall},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Topic :: Utilities'
     ]
