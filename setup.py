@@ -19,7 +19,7 @@ version = '0.1.9'
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
 try:
-    long_description = open(os.path.join(cur_dir, 'README.md')).read()
+    long_description = open(os.path.join(current_dir, 'README.md')).read()
 except:
     long_description = description
 
