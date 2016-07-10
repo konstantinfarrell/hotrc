@@ -7,8 +7,8 @@ from setuptools.command.install import install
 class PostInstall(install):
     def run(self):
         install.run(self)
-        subprocess.call(sys.path[0]+'/hotrc/reload.sh')
-        path = sys.path[0] + '/hotrc/path.sh'
+        subprocess.call(os.path.join(sys.path[0], '/hotrc/reload.sh'))
+        path = os.path.join(sys.path[0], '/hotrc/path.sh')
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
         subprocess.call(['source ~/.bashrc'], shell=True)
@@ -19,7 +19,7 @@ version = '0.1.9'
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
 try:
-    long_description = open(os.path.join(cur_dir, 'README.md')).read()
+    long_description = open(os.path.join(current_dir, 'README.md')).read()
 except:
     long_description = description
 
