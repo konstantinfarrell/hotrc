@@ -2,5 +2,5 @@ language: python
 python:
     - "3.5.0"
 install:
-    - make install
-script: make test
+    - make travis-install
+script: make travis-test
