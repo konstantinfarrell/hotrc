@@ -8,8 +8,8 @@ are persistent and don't rely on the user session.
 
 Clone this repo into a local directory, and install.
 
-    git clone https://github.com/konstantinfarrell/hotrc.git
-    cd hotrc
+    git clone https://github.com/konstantinfarrell/hotrc.git ~/.hotrc
+    cd ~/.hotrc
     make
 
 ## Run
