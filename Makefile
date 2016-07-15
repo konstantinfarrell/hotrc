@@ -11,3 +11,6 @@ travis-install:
 
 travis-test:
 	python -m unittest discover
+
+pep8:
+	python -m flake8 .
