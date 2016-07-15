@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/konstantinfarrell/hotrc.svg?branch=master)](https://travis-ci.org/konstantinfarrell/hotrc)
+
 # HotRC
 
 hotrc ("hot-are-see") is a python based command line utility that lets you add or remove an alias to/from your `.bashrc` file
