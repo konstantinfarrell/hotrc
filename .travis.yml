@@ -3,4 +3,4 @@ python:
     - "3.5.0"
 install:
     - make install
-script: make travis-test
+script: make test
