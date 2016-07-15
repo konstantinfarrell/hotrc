@@ -11,6 +11,8 @@ class HotRC(object):
     BASHRC = ''
 
     def __init__(self, *args, **kwargs):
+        if 'bashrc' in kwargs:
+            self.BASHRC = kwargs.pop('bashrc')
         self.ALIASES = self.get_aliases()
 
     def get_info(self):
@@ -19,14 +21,14 @@ class HotRC(object):
         or prompt the user for input.
         """
         try:
-            info = open(os.path.dirname(__file__)+'/info', 'r')
-            self.BASHRC = info.readline()
+            with open(os.path.dirname(__file__)+'/info', 'r') as info:
+                self.BASHRC = info.readline()
         except IOError as e:
-            info = open(os.path.dirname(__file__)+'/info', 'w')
-            print("Bashrc not found. Specify path to bashrc.")
-            bashrc = str(input('BASHRC_PATH: '))
-            self.BASHRC = bashrc
-            info.write(bashrc)
+            with open(os.path.dirname(__file__)+'/info', 'w') as info:
+                print("Bashrc not found. Specify path to bashrc.")
+                bashrc = str(input('BASHRC_PATH: '))
+                self.BASHRC = bashrc
+                info.write(bashrc)
 
     def get_aliases(self):
         """
@@ -64,7 +66,10 @@ class HotRC(object):
         """
         Read the entire `.bashrc` file.
         """
-        return open(self.BASHRC, 'r').read()
+        contents = None
+        with open(self.BASHRC, 'r') as rc:
+            contents = rc.read()
+        return contents
 
     def remove_alias(self, key, value=None):
         """
@@ -108,8 +113,8 @@ class HotRC(object):
         d_range = self.get_index_range_of_definitions()
         contents.insert(d_range[1], command)
         contents = '\n'.join(contents)
-        bashrc = open(self.BASHRC, 'w')
-        bashrc.write(contents)
+        with open(self.BASHRC, 'w') as bashrc:
+            bashrc.write(contents)
 
     def get_index_range_of_definitions(self):
         """
