@@ -7,7 +7,6 @@ from hotrc.hotrc import HotRC
 class TestHotRC(TestCase):
     hotrc = None
 
-
     @classmethod
     def setUpClass(cls):
         cls.rcfile = '{}/.testrc'.format(os.path.dirname(__file__))

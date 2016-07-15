@@ -4,6 +4,7 @@ import subprocess
 from setuptools import setup, find_packages
 from setuptools.command.install import install
 
+
 class PostInstall(install):
     def run(self):
         install.run(self)
@@ -24,17 +25,17 @@ except:
     long_description = description
 
 setup(
-    name = 'HotRC',
-    version = version,
-    packages = find_packages(),
-    url = 'https://github.com/konstantinfarrell/hotrc',
-    license = 'MIT',
-    description = description,
-    long_description = long_description,
-    author = 'Konstantin Farrell',
-    author_email = 'konstantinfarrell@gmail.com',
-    install_requires = ['setuptools', 'flake8'],
-    cmdclass = {'install': PostInstall},
+    name='HotRC',
+    version=version,
+    packages=find_packages(),
+    url='https://github.com/konstantinfarrell/hotrc',
+    license='MIT',
+    description=description,
+    long_description=long_description,
+    author='Konstantin Farrell',
+    author_email='konstantinfarrell@gmail.com',
+    install_requires=['setuptools', 'flake8'],
+    cmdclass={'install': PostInstall},
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
