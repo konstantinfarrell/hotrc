@@ -155,9 +155,9 @@ def start(args=None, rcfile=None):
             if len(args) == 3:
                 h.create_alias(args[1], args[2])
             else:
-                key = str(input("Alias Key: ")) # pragma: no cover
-                value = str(input("Alias Value: ")) # pragma: no cover
-                h.create_alias(key, value)  # pragma: no cover
+                key = str(input("Alias Key: "))
+                value = str(input("Alias Value: "))
+                h.create_alias(key, value) # pragma: no cover
         # Case 2: Remove an old alias.
         elif args[0] == 'remove' or args[0] == 'rm':
             if len(args) > 1:
@@ -166,24 +166,24 @@ def start(args=None, rcfile=None):
                 except IndexError as e:
                     h.remove_alias(args[1])
             else:
-                key = str(input("Alias Key: ")) # pragma: no cover
-                value = str(input("Alias Value: ")) # pragma: no cover
+                key = str(input("Alias Key: "))
+                value = str(input("Alias Value: "))
                 h.remove_alias(key, value)  # pragma: no cover
         # Case 3: List all defined aliases.
         elif args[0] == 'list':             # pragma: no cover
-            print("\nAll Aliases")          # pragma: no cover
-            print("Key\tValue")             # pragma: no cover
-            print("===\t=====\n")           # pragma: no cover
+            print("\nAll Aliases")
+            print("Key\tValue")
+            print("===\t=====\n")
             for key, value in h.ALIASES.items(): # pragma: no cover
                 s = key + '\t' + value      # pragma: no cover
-                print(s)                    # pragma: no cover
-            print('')                       # pragma: no cover
+                print(s)
+            print('')
         # Case 4: Reset the bashrc file.
         elif args[0] == 'reset':            # pragma: no cover
             os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
             h.get_info()                    # pragma: no cover
     # Case Default: User doesn't add arguments.
-    except IndexError as e: 
+    except IndexError as e:
         print('\nERROR: No Arguments.\n\
                 Please run with arguments.\n\
                 Accepted syntax:\n\
