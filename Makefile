@@ -1,4 +1,4 @@
-.PHONY: install run
+.PHONY: install run travis-install travis-test travis-coverage
 
 VENV_DIR ?= .env
 PYTHON = python
