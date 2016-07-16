@@ -27,6 +27,13 @@ coverage:
 	$(VENV_DIR)/bin/$(PYTHON) -m coverage run -m unittest discover
 	$(VENV_DIR)/bin/$(PYTHON) -m coverage report -m
 
+travis-install:
+	python -m pip install -r requirements.txt
+
+travis-test:
+	python -m unittest discover
+
+
 pep8:
 	clear
 	$(VENV_DIR)/bin/flake8 .
