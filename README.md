@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/konstantinfarrell/hotrc.svg?branch=master)](https://travis-ci.org/konstantinfarrell/hotrc)
-[![Coverage Status](https://coveralls.io/repos/github/konstantinfarrell/hotrc/badge.svg?branch=master)](https://coveralls.io/github/konstantinfarrell/hotrc?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/konstantinfarrell/hotrc/badge.png?branch=master)](https://coveralls.io/github/konstantinfarrell/hotrc?branch=master)
 
 # HotRC
 
