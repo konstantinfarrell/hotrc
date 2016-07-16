@@ -15,16 +15,18 @@ class HotRC(object):
             self.BASHRC = kwargs.pop('bashrc')
         self.ALIASES = self.get_aliases()
 
-    def get_info(self):
+    def get_info(self, info_file=None):
         """
         Parse the info file for `.bashrc` location
         or prompt the user for input.
         """
+        if info_file is None:
+            info_file = '{}/info'.format(os.path.dirname(__file__))
         try:
-            with open(os.path.dirname(__file__)+'/info', 'r') as info:
+            with open(info_file, 'r') as info:
                 self.BASHRC = info.readline()
         except IOError as e:
-            with open(os.path.dirname(__file__)+'/info', 'w') as info:
+            with open(info_file, 'w') as info:
                 print("Bashrc not found. Specify path to bashrc.")
                 bashrc = str(input('BASHRC_PATH: '))
                 self.BASHRC = bashrc
@@ -87,8 +89,11 @@ class HotRC(object):
         bashrc = '\n'.join(bashrc)
         with open(self.BASHRC, 'w') as f:
             f.write(bashrc)
-        script = '{}/unalias.sh {}'.format(os.path.dirname(__file__), key)
-        subprocess.call([script], shell=True)
+        script = '{}/unalias.sh'.format(os.path.dirname(__file__))
+        subprocess.Popen([script, key],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.STDOUT,
+                         shell=False)
 
     def write_to_bashrc(self, key, value):
         """
