@@ -3,5 +3,5 @@ source = hotrc
 
 [report]
 exclude_lines=
-    pragme: no cover
+    pragma: no cover
     if __name__ == .__main__.:

@@ -92,4 +92,8 @@ class TestHotRC(TestCase):
         '''
         result = self.hotrc.get_index_range_of_definitions()
         self.assertNotEqual(result[0], -1)
+        with open(self.hotrc.BASHRC, 'w') as f:
+            f.write('')
+        result = self.hotrc.get_index_range_of_definitions()
+        self.assertEqual(result[0], 1)
 

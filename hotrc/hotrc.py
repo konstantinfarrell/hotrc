@@ -21,16 +21,17 @@ class HotRC(object):
         or prompt the user for input.
         """
         if info_file is None:
-            info_file = '{}/info'.format(os.path.dirname(__file__))
+            info_file = '{}/info'.format(os.path.dirname(__file__)) # pragma: no cover
         try:
             with open(info_file, 'r') as info:
                 self.BASHRC = info.readline()
-        except IOError as e:
-            with open(info_file, 'w') as info:
-                print("Bashrc not found. Specify path to bashrc.")
-                bashrc = str(input('BASHRC_PATH: '))
-                self.BASHRC = bashrc
-                info.write(bashrc)
+        except IOError as e:    # pragma: no cover
+            with open(info_file, 'w') as info:  # pragma: no cover
+                print("Bashrc not found. Specify path to bashrc.")  # pragma: no cover
+                bashrc = str(input('BASHRC_PATH: '))    # pragma: no cover
+                self.BASHRC = bashrc    # pragma: no cover
+                info.write(bashrc)      # pragma: no cover
+
 
     def get_aliases(self):
         """
