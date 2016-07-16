@@ -67,6 +67,12 @@ class TestHotRC(TestCase):
         self.hotrc.write_to_bashrc('foo', 'bar')
         result = self.hotrc.get_aliases()
         self.assertIn(str(result), "{'foo': 'bar'}")
+        test_info = '{}/test_info'.format(os.path.dirname(__file__))
+        with open(test_info, 'w+') as f:
+            f.write(self.hotrc.BASHRC)
+        self.hotrc.BASHRC = ''
+        result = self.hotrc.get_aliases(info_file=test_info)
+        self.assertIn(str(result), "{'foo': 'bar'}")
 
     def test_create_alias(self):
         ''' Tests to make sure an alias is created correctly. '''

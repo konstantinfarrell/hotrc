@@ -33,13 +33,13 @@ class HotRC(object):
                 info.write(bashrc)      # pragma: no cover
 
 
-    def get_aliases(self):
+    def get_aliases(self, info_file=None):
         """
         Read all the aliases from the `.bashrc` file
         """
         # Get .bashrc location and read file contents.
         if self.BASHRC == '':
-            self.get_info()
+            self.get_info(info_file=info_file)
         contents = self.read_bashrc().split('\n')
         aliases = dict()
         for line in contents:
@@ -148,16 +148,16 @@ class HotRC(object):
 def start(args=None, rcfile=None):
     h = HotRC(bashrc=rcfile)
     if args is None:
-        args = sys.argv[1:]
+        args = sys.argv[1:] # pragma: no cover
     try:
         # Case 1: Create a new alias.
         if args[0] == 'new' or args[0] == 'add':
             if len(args) == 3:
                 h.create_alias(args[1], args[2])
             else:
-                key = str(input("Alias Key: "))
-                value = str(input("Alias Value: "))
-                h.create_alias(key, value)
+                key = str(input("Alias Key: ")) # pragma: no cover
+                value = str(input("Alias Value: ")) # pragma: no cover
+                h.create_alias(key, value)  # pragma: no cover
         # Case 2: Remove an old alias.
         elif args[0] == 'remove' or args[0] == 'rm':
             if len(args) > 1:
@@ -166,9 +166,9 @@ def start(args=None, rcfile=None):
                 except IndexError as e:
                     h.remove_alias(args[1])
             else:
-                key = str(input("Alias Key: "))
-                value = str(input("Alias Value: "))
-                h.remove_alias(key, value)
+                key = str(input("Alias Key: ")) # pragma: no cover
+                value = str(input("Alias Value: ")) # pragma: no cover
+                h.remove_alias(key, value)  # pragma: no cover
         # Case 3: List all defined aliases.
         elif args[0] == 'list':             # pragma: no cover
             print("\nAll Aliases")          # pragma: no cover
@@ -183,7 +183,7 @@ def start(args=None, rcfile=None):
             os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
             h.get_info()                    # pragma: no cover
     # Case Default: User doesn't add arguments.
-    except IndexError as e:
+    except IndexError as e: 
         print('\nERROR: No Arguments.\n\
                 Please run with arguments.\n\
                 Accepted syntax:\n\
