@@ -1,7 +1,8 @@
 import os
+import sys
 from unittest import TestCase
 
-from hotrc.hotrc import HotRC
+from hotrc.hotrc import HotRC, start
 
 
 class TestHotRC(TestCase):
@@ -32,6 +33,8 @@ class TestHotRC(TestCase):
             f.write(content)
         result = self.hotrc.read_bashrc()
         self.assertIn(content, result)
+        with open(self.hotrc.BASHRC, 'w') as f:
+            f.write('')
 
     def test_write_to_bashrc(self):
         ''' Tests that a key and value are
@@ -85,7 +88,6 @@ class TestHotRC(TestCase):
         result = self.hotrc.get_aliases()
         self.assertNotIn(key, result.keys())
 
-
     def test_get_index_range_of_definitions(self):
         ''' Tests to make sure the index of the rc file where the HOTRC
         definitions begin exists.
@@ -97,3 +99,21 @@ class TestHotRC(TestCase):
         result = self.hotrc.get_index_range_of_definitions()
         self.assertEqual(result[0], 1)
 
+    def test_start_new(self):
+        ''' Tests start method to ensure new
+        alias is added
+        '''
+        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        with open(self.hotrc.BASHRC, 'r') as result:
+            result = result.read()
+            self.assertIn('foo', result)
+            self.assertIn('bar', result)
+
+    def test_start_remove(self):
+        ''' Tests start method to ensure alias is removed '''
+        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['rm', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        with open(self.hotrc.BASHRC, 'r') as result:
+            result = result.read()
+            self.assertNotIn('foo', result)
+            self.assertNotIn('bar', result)

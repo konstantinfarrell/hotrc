@@ -145,9 +145,10 @@ class HotRC(object):
         return (start, end)
 
 
-def start():
-    h = HotRC()
-    args = sys.argv[1:]
+def start(args=None, rcfile=None):
+    h = HotRC(bashrc=rcfile)
+    if args is None:
+        args = sys.argv[1:]
     try:
         # Case 1: Create a new alias.
         if args[0] == 'new' or args[0] == 'add':
@@ -169,18 +170,18 @@ def start():
                 value = str(input("Alias Value: "))
                 h.remove_alias(key, value)
         # Case 3: List all defined aliases.
-        elif args[0] == 'list':
-            print("\nAll Aliases")
-            print("Key\tValue")
-            print("===\t=====\n")
-            for key, value in h.ALIASES.items():
-                s = key + '\t' + value
-                print(s)
-            print('')
+        elif args[0] == 'list':             # pragma: no cover
+            print("\nAll Aliases")          # pragma: no cover
+            print("Key\tValue")             # pragma: no cover
+            print("===\t=====\n")           # pragma: no cover
+            for key, value in h.ALIASES.items(): # pragma: no cover
+                s = key + '\t' + value      # pragma: no cover
+                print(s)                    # pragma: no cover
+            print('')                       # pragma: no cover
         # Case 4: Reset the bashrc file.
-        elif args[0] == 'reset':
-            os.remove(os.path.dirname(__file__)+'/info')
-            h.get_info()
+        elif args[0] == 'reset':            # pragma: no cover
+            os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
+            h.get_info()                    # pragma: no cover
     # Case Default: User doesn't add arguments.
     except IndexError as e:
         print('\nERROR: No Arguments.\n\
