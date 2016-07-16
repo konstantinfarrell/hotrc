@@ -3,4 +3,4 @@ python:
     - "3.5.0"
 install:
     - make travis-install
-script: make travis-test
+script: make travis-coverage

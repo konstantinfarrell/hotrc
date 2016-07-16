@@ -34,7 +34,7 @@ travis-test:
 	python -m unittest discover
 
 travis-coverage:
-	python -m coverage unittest discover
+	python -m coverage run -m unittest discover
 
 pep8:
 	clear
