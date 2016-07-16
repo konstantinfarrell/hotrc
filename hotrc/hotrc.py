@@ -143,7 +143,10 @@ class HotRC(object):
 
 
 def start(args=None, rcfile=None):
-    h = HotRC(bashrc=rcfile)
+    if rcfile is not None:
+        h = HotRC(bashrc=rcfile)
+    else:
+        h = HotRC() # pragma: no cover
     if args is None:
         args = sys.argv[1:] # pragma: no cover
     try:
