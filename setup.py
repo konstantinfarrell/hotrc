@@ -8,8 +8,8 @@ from setuptools.command.install import install
 class PostInstall(install):
     def run(self):
         install.run(self)
-        subprocess.call(os.path.join(sys.path[0], '/hotrc/reload.sh'))
-        path = os.path.join(sys.path[0], '/hotrc/path.sh')
+        subprocess.call(os.path.join(sys.path[0], 'hotrc/reload.sh'))
+        path = os.path.join(sys.path[0], 'hotrc/path.sh')
         sys.path.append(sys.path[0])
         subprocess.call(path, shell=True)
         subprocess.call(['source ~/.bashrc'], shell=True)
@@ -24,6 +24,8 @@ try:
 except:
     long_description = description
 
+requirements = open('requirements.txt', 'r').read().splitlines()
+
 setup(
     name='HotRC',
     version=version,
@@ -34,7 +36,7 @@ setup(
     long_description=long_description,
     author='Konstantin Farrell',
     author_email='konstantinfarrell@gmail.com',
-    install_requires=['setuptools', 'flake8'],
+    install_requires=requirements,
     cmdclass={'install': PostInstall},
     classifiers=[
         'Development Status :: 3 - Alpha',

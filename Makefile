@@ -1,16 +1,42 @@
 .PHONY: install run
 
+VENV_DIR ?= .env
+PYTHON = python
+REQUIREMENTS = requirements.txt
+
 install:
-	python setup.py install
+	$(VENV_DIR)/bin/$(PYTHON) setup.py install
+
+init:
+	clear
+	rm -rf $(VENV_DIR)
+	@$(MAKE) $(VENV_DIR)
+	@$(MAKE) install
+
+clean:
+	find . -iname "*.pyc" -delete
+	find . -iname "*.pyo" -delete
+	find . -iname "__pycache__" -delete
 
 test:
-	python -m unittest discover
+	clear
+	$(VENV_DIR)/bin/$(PYTHON) -m unittest discover
 
-travis-install:
-	pip install setuptools flake8
-
-travis-test:
-	python -m unittest discover
+coverage:
+	clear
+	$(VENV_DIR)/bin/$(PYTHON) -m coverage run -m unittest discover
+	$(VENV_DIR)/bin/$(PYTHON) -m coverage report -m
 
 pep8:
-	python -m flake8 .
+	clear
+	$(VENV_DIR)/bin/flake8 .
+
+$(VENV_DIR):
+	virtualenv $(VENV_DIR)
+	if [ -a $(REQUIREMENTS) ] ; \
+	then \
+		$(VENV_DIR)/bin/pip install -r requirements.txt ; \
+	else \
+		$(VENV_DIR)/bin/pip install flake8 coverage; \
+		$(VENV_DIR)/bin/pip freeze > requirements.txt ; \
+	fi;
