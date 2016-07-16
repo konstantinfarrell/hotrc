@@ -4,3 +4,5 @@ python:
 install:
     - make travis-install
 script: make travis-coverage
+after_success:
+    coveralls
