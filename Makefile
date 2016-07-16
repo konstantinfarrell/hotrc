@@ -33,6 +33,8 @@ travis-install:
 travis-test:
 	python -m unittest discover
 
+travis-coverage:
+	python -m coverage unittest discover
 
 pep8:
 	clear
