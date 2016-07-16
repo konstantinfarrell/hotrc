@@ -180,7 +180,7 @@ def start(args=None, rcfile=None):
             os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
             h.get_info()                    # pragma: no cover
     # Case Default: User doesn't add arguments.
-    except IndexError as e:
+    except IndexError as e: # pragma: no cover
         print('\nERROR: No Arguments.\n\
                 Please run with arguments.\n\
                 Accepted syntax:\n\

@@ -123,3 +123,9 @@ class TestHotRC(TestCase):
             result = result.read()
             self.assertNotIn('foo', result)
             self.assertNotIn('bar', result)
+        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['rm', 'foo'], rcfile=self.hotrc.BASHRC)
+        with open(self.hotrc.BASHRC, 'r') as result:
+            result = result.read()
+            self.assertNotIn('foo', result)
+            self.assertNotIn('bar', result)
