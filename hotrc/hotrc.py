@@ -133,10 +133,7 @@ class HotRC(object):
         for line in bashrc:
             if line.startswith('# HOTRC'):
                 start = bashrc.index(line)
-                if start != len(bashrc):
-                    end = bashrc[start:].index('') + start
-                else:
-                    start = end
+                end = bashrc[start:].index('') + start
         if start:
             return (start, end)
         else:
