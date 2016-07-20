@@ -143,6 +143,8 @@ class HotRC(object):
 
 
 def start(args=None, rcfile=None):
+    """ Controls the command line interface for hotrc """
+
     if rcfile is not None:
         h = HotRC(bashrc=rcfile)
     else:
@@ -158,6 +160,7 @@ def start(args=None, rcfile=None):
                 key = str(input("Alias Key: "))
                 value = str(input("Alias Value: "))
                 h.create_alias(key, value) # pragma: no cover
+
         # Case 2: Remove an old alias.
         elif args[0] == 'remove' or args[0] == 'rm':
             if len(args) > 1:
@@ -169,6 +172,7 @@ def start(args=None, rcfile=None):
                 key = str(input("Alias Key: "))
                 value = str(input("Alias Value: "))
                 h.remove_alias(key, value)  # pragma: no cover
+
         # Case 3: List all defined aliases.
         elif args[0] == 'list':             # pragma: no cover
             print("\nAll Aliases")
@@ -178,6 +182,7 @@ def start(args=None, rcfile=None):
                 s = key + '\t' + value      # pragma: no cover
                 print(s)
             print('')
+
         # Case 4: Reset the bashrc file.
         elif args[0] == 'reset':            # pragma: no cover
             os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
