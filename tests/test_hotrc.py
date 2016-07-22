@@ -109,7 +109,7 @@ class TestHotRC(TestCase):
         ''' Tests start method to ensure new
         alias is added
         '''
-        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['new', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
         with open(self.hotrc.BASHRC, 'r') as result:
             result = result.read()
             self.assertIn('foo', result)
@@ -117,14 +117,14 @@ class TestHotRC(TestCase):
 
     def test_start_remove(self):
         ''' Tests start method to ensure alias is removed '''
-        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
-        start(args=['rm', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['new', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['remove', 'foo', '-v bar'], rcfile=self.hotrc.BASHRC)
         with open(self.hotrc.BASHRC, 'r') as result:
             result = result.read()
             self.assertNotIn('foo', result)
             self.assertNotIn('bar', result)
-        start(args=['add', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
-        start(args=['rm', 'foo'], rcfile=self.hotrc.BASHRC)
+        start(args=['new', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
+        start(args=['remove', 'foo'], rcfile=self.hotrc.BASHRC)
         with open(self.hotrc.BASHRC, 'r') as result:
             result = result.read()
             self.assertNotIn('foo', result)
