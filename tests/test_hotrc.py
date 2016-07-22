@@ -118,12 +118,6 @@ class TestHotRC(TestCase):
     def test_start_remove(self):
         ''' Tests start method to ensure alias is removed '''
         start(args=['new', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
-        start(args=['remove', 'foo', '-v bar'], rcfile=self.hotrc.BASHRC)
-        with open(self.hotrc.BASHRC, 'r') as result:
-            result = result.read()
-            self.assertNotIn('foo', result)
-            self.assertNotIn('bar', result)
-        start(args=['new', 'foo', 'bar'], rcfile=self.hotrc.BASHRC)
         start(args=['remove', 'foo'], rcfile=self.hotrc.BASHRC)
         with open(self.hotrc.BASHRC, 'r') as result:
             result = result.read()

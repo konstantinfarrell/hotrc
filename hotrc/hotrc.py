@@ -75,16 +75,13 @@ class HotRC(object):
             contents = rc.read()
         return contents
 
-    def remove_alias(self, key, value=None):
+    def remove_alias(self, key):
         """
         Remove an alias from the `.bashrc` file if it exists.
         """
 
         bashrc = self.read_bashrc().split('\n')
-        if value is None:
-            command = "alias "+str(key)+"="
-        else:
-            command = "alias "+str(key)+"=\""+str(value)+"\""
+        command = "alias "+str(key)+"="
         for line in bashrc:
             if command in line:
                 del bashrc[bashrc.index(line)]
@@ -160,11 +157,6 @@ def start(args=None, rcfile=None):
     remove_parser = subparsers.add_parser('remove')
     remove_parser.set_defaults(which='remove')
     remove_parser.add_argument('alias_key', type=str, help='Alias Key')
-    remove_parser.add_argument('-v',
-                               '--alias_value',
-                               type=str,
-                               default=None,
-                               help='Alias Value')
 
     list_parser = subparsers.add_parser('list')
     list_parser.set_defaults(which='list')
@@ -184,7 +176,7 @@ def start(args=None, rcfile=None):
         h.create_alias(parsed_args.alias_key, parsed_args.alias_value)
     # Case 2: Remove an old alias.
     elif parsed_args.which == 'remove':
-        h.remove_alias(parsed_args.alias_key, parsed_args.alias_value)
+        h.remove_alias(parsed_args.alias_key)
     # Case 3: List all defined aliases.
     elif parsed_args.which == 'list':
         print("\nAll Aliases")
