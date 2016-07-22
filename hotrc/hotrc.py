@@ -201,4 +201,4 @@ def start(args=None, rcfile=None):
 
 
 if __name__ == "__main__":
-    start(rcfile='/Users/will/.bashrc')
+    start()
