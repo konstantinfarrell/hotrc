@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import os
 import sys
 import subprocess
@@ -141,16 +142,58 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
+def description():
+    """Description for command line interface"""
+    return ''
 
 def start(args=None, rcfile=None):
     """ Controls the command line interface for hotrc """
+
+    parser = argparse.ArgumentParser(description=description())
+    subparsers = parser.add_subparsers()
+
+    new_parser = subparsers.add_parser('new')
+    new_parser.set_defaults(which='new')
+    new_parser.add_argument('alias_key', type=str, help='Alias Key')
+    new_parser.add_argument('alias_value', type=str, help='Alias Value')
+
+    remove_parser = subparsers.add_parser('remove')
+    remove_parser.set_defaults(which='remove')
+    remove_parser.add_argument('alias_key', type=str, help='Alias Key')
+    remove_parser.add_argument('-v', '--alias_value', type=str, default=None, help='Alias Value')
+
+    list_parser = subparsers.add_parser('list')
+    list_parser.set_defaults(which='list')
+
+    reset_parser = subparsers.add_parser('reset')
+    reset_parser.set_defaults(which='reset')
+
+    parsed_args = parser.parse_args(args)
 
     if rcfile is not None:
         h = HotRC(bashrc=rcfile)
     else:
         h = HotRC()  # pragma: no cover
-    if args is None:
-        args = sys.argv[1:]  # pragma: no cover
+
+    if parsed_args.which == 'new':
+        h.create_alias(args.alias_key, args.alias_value)
+    elif parsed_args.which == 'remove':
+        h.remove_alias(args.alias_key, args.alias_value)
+    elif parsed_args.which == 'list':
+        print("\nAll Aliases")
+        print("Key\tValue")
+        print("===\t=====\n")
+        for key, value in h.ALIASES.items():  # pragma: no cover
+            s = key + '\t' + value      # pragma: no cover
+            print(s)
+        print('')
+    elif parsed_args.which == 'reset':
+        os.remove(os.path.dirname(__file__)+'/info')  # pragma: no cover
+        h.get_info()                    # pragma: no cover
+
+
+
+    """
     try:
         # Case 1: Create a new alias.
         if args[0] == 'new' or args[0] == 'add':
@@ -196,6 +239,7 @@ def start(args=None, rcfile=None):
                 \thotrc rm/remove [key] [(optional) value]\n\
                 \thotrc list\n\
                 \thotrc reset\n')
+    """
 
 
 if __name__ == "__main__":
