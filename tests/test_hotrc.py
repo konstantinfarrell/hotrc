@@ -1,5 +1,4 @@
 import os
-import sys
 from unittest import TestCase
 
 from hotrc.hotrc import HotRC, start
@@ -81,7 +80,8 @@ class TestHotRC(TestCase):
         self.hotrc.create_alias(key, value)
         result = self.hotrc.get_aliases()
         self.assertIn(key, result.keys())
-        self.assertEqual(str(value), str(result.get(key, None)).replace('"',''))
+        self.assertEqual(str(value),
+                         str(result.get(key, None)).replace('"', ''))
 
     def test_remove_alias(self):
         ''' Tests to ensure an alias can be properly removed '''

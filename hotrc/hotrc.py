@@ -21,7 +21,8 @@ class HotRC(object):
         or prompt the user for input.
         """
         if info_file is None:
-            info_file = '{}/info'.format(os.path.dirname(__file__)) # pragma: no cover
+            info_file = '{}/info'.format(
+                    os.path.dirname(__file__))  # pragma: no cover
         try:
             with open(info_file, 'r') as info:
                 self.BASHRC = info.readline()
@@ -31,7 +32,6 @@ class HotRC(object):
                 bashrc = str(input('BASHRC_PATH: '))    # pragma: no cover
                 self.BASHRC = bashrc    # pragma: no cover
                 info.write(bashrc)      # pragma: no cover
-
 
     def get_aliases(self, info_file=None):
         """
@@ -148,9 +148,9 @@ def start(args=None, rcfile=None):
     if rcfile is not None:
         h = HotRC(bashrc=rcfile)
     else:
-        h = HotRC() # pragma: no cover
+        h = HotRC()  # pragma: no cover
     if args is None:
-        args = sys.argv[1:] # pragma: no cover
+        args = sys.argv[1:]  # pragma: no cover
     try:
         # Case 1: Create a new alias.
         if args[0] == 'new' or args[0] == 'add':
@@ -159,7 +159,7 @@ def start(args=None, rcfile=None):
             else:
                 key = str(input("Alias Key: "))
                 value = str(input("Alias Value: "))
-                h.create_alias(key, value) # pragma: no cover
+                h.create_alias(key, value)  # pragma: no cover
 
         # Case 2: Remove an old alias.
         elif args[0] == 'remove' or args[0] == 'rm':
@@ -178,17 +178,17 @@ def start(args=None, rcfile=None):
             print("\nAll Aliases")
             print("Key\tValue")
             print("===\t=====\n")
-            for key, value in h.ALIASES.items(): # pragma: no cover
+            for key, value in h.ALIASES.items():  # pragma: no cover
                 s = key + '\t' + value      # pragma: no cover
                 print(s)
             print('')
 
         # Case 4: Reset the bashrc file.
         elif args[0] == 'reset':            # pragma: no cover
-            os.remove(os.path.dirname(__file__)+'/info') # pragma: no cover
+            os.remove(os.path.dirname(__file__)+'/info')  # pragma: no cover
             h.get_info()                    # pragma: no cover
     # Case Default: User doesn't add arguments.
-    except IndexError as e: # pragma: no cover
+    except IndexError as e:  # pragma: no cover
         print('\nERROR: No Arguments.\n\
                 Please run with arguments.\n\
                 Accepted syntax:\n\
