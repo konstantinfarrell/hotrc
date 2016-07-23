@@ -30,10 +30,8 @@ arg2 should be put in quotes if the alias command contains a space.
 
 **Commands**
 
-- `add`: Takes 2 arguments, `key` and `value` and constructs a `.bashrc` alias for them.
+- `new`: Takes 2 arguments, `key` and `value` and constructs a `.bashrc` alias for them.
     If arguments arent provided, the user will be prompted for them.
 - `list`: Takes no arguments. Lists all current aliases in the `.bashrc`
-- `new`: Same as add.
 - `remove`: Takes 1 or 2 arguments: `key`, or `key` and `value`, and removes the corresponding alias from the `.bashrc` file.
 - `reset`: Deletes old entry and prompts the user for the path to the `.bashrc` file. Only absolute paths are accepted.
-- `rm`: Same as remove.
