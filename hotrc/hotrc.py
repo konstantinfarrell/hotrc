@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import os
 import sys
 import subprocess
@@ -74,16 +75,13 @@ class HotRC(object):
             contents = rc.read()
         return contents
 
-    def remove_alias(self, key, value=None):
+    def remove_alias(self, key):
         """
         Remove an alias from the `.bashrc` file if it exists.
         """
 
         bashrc = self.read_bashrc().split('\n')
-        if value is None:
-            command = "alias "+str(key)+"="
-        else:
-            command = "alias "+str(key)+"=\""+str(value)+"\""
+        command = "alias "+str(key)+"="
         for line in bashrc:
             if command in line:
                 del bashrc[bashrc.index(line)]
@@ -141,61 +139,57 @@ class HotRC(object):
             end = len(bashrc)
         return (start, end)
 
+def description():
+    """Description for command line interface"""
+    return ''
 
 def start(args=None, rcfile=None):
     """ Controls the command line interface for hotrc """
+
+    parser = argparse.ArgumentParser(description=description())
+    subparsers = parser.add_subparsers()
+
+    new_parser = subparsers.add_parser('new')
+    new_parser.set_defaults(which='new')
+    new_parser.add_argument('alias_key', type=str, help='Alias Key')
+    new_parser.add_argument('alias_value', type=str, help='Alias Value')
+
+    remove_parser = subparsers.add_parser('remove')
+    remove_parser.set_defaults(which='remove')
+    remove_parser.add_argument('alias_key', type=str, help='Alias Key')
+
+    list_parser = subparsers.add_parser('list')
+    list_parser.set_defaults(which='list')
+
+    reset_parser = subparsers.add_parser('reset')
+    reset_parser.set_defaults(which='reset')
+
+    parsed_args = parser.parse_args(args)
 
     if rcfile is not None:
         h = HotRC(bashrc=rcfile)
     else:
         h = HotRC()  # pragma: no cover
-    if args is None:
-        args = sys.argv[1:]  # pragma: no cover
-    try:
-        # Case 1: Create a new alias.
-        if args[0] == 'new' or args[0] == 'add':
-            if len(args) == 3:
-                h.create_alias(args[1], args[2])
-            else:
-                key = str(input("Alias Key: "))
-                value = str(input("Alias Value: "))
-                h.create_alias(key, value)  # pragma: no cover
 
-        # Case 2: Remove an old alias.
-        elif args[0] == 'remove' or args[0] == 'rm':
-            if len(args) > 1:
-                try:
-                    h.remove_alias(args[1], args[2])
-                except IndexError as e:
-                    h.remove_alias(args[1])
-            else:
-                key = str(input("Alias Key: "))
-                value = str(input("Alias Value: "))
-                h.remove_alias(key, value)  # pragma: no cover
-
-        # Case 3: List all defined aliases.
-        elif args[0] == 'list':             # pragma: no cover
-            print("\nAll Aliases")
-            print("Key\tValue")
-            print("===\t=====\n")
-            for key, value in h.ALIASES.items():  # pragma: no cover
-                s = key + '\t' + value      # pragma: no cover
-                print(s)
-            print('')
-
-        # Case 4: Reset the bashrc file.
-        elif args[0] == 'reset':            # pragma: no cover
-            os.remove(os.path.dirname(__file__)+'/info')  # pragma: no cover
-            h.get_info()                    # pragma: no cover
-    # Case Default: User doesn't add arguments.
-    except IndexError as e:  # pragma: no cover
-        print('\nERROR: No Arguments.\n\
-                Please run with arguments.\n\
-                Accepted syntax:\n\
-                \n\thotrc new/add [key] [value]\n\
-                \thotrc rm/remove [key] [(optional) value]\n\
-                \thotrc list\n\
-                \thotrc reset\n')
+    # Case 1: Create a new alias.
+    if parsed_args.which == 'new':
+        h.create_alias(parsed_args.alias_key, parsed_args.alias_value)
+    # Case 2: Remove an old alias.
+    elif parsed_args.which == 'remove':
+        h.remove_alias(parsed_args.alias_key)
+    # Case 3: List all defined aliases.
+    elif parsed_args.which == 'list': # pragma: no cover
+        print("\nAll Aliases")
+        print("Key\tValue")
+        print("===\t=====\n")
+        for key, value in h.ALIASES.items():  # pragma: no cover
+            s = key + '\t' + value      # pragma: no cover
+            print(s)
+        print('')
+    # Case 4: Reset the bashrc file.
+    elif parsed_args.which == 'reset': # pragma: no cover
+        os.remove(os.path.dirname(__file__)+'/info')  # pragma: no cover
+        h.get_info()                    # pragma: no cover
 
 
 if __name__ == "__main__":
