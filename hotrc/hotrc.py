@@ -178,7 +178,7 @@ def start(args=None, rcfile=None):
     elif parsed_args.which == 'remove':
         h.remove_alias(parsed_args.alias_key)
     # Case 3: List all defined aliases.
-    elif parsed_args.which == 'list':
+    elif parsed_args.which == 'list': # pragma: no cover
         print("\nAll Aliases")
         print("Key\tValue")
         print("===\t=====\n")
@@ -187,7 +187,7 @@ def start(args=None, rcfile=None):
             print(s)
         print('')
     # Case 4: Reset the bashrc file.
-    elif parsed_args.which == 'reset':
+    elif parsed_args.which == 'reset': # pragma: no cover
         os.remove(os.path.dirname(__file__)+'/info')  # pragma: no cover
         h.get_info()                    # pragma: no cover
 
