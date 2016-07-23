@@ -15,7 +15,7 @@ class PostInstall(install):
         subprocess.call(['source ~/.bashrc'], shell=True)
 
 
-version = '0.2.1'
+version = '0.2.2'
 
 description = 'A command line tool for managing aliases in your .bashrc file.'
 current_dir = os.path.dirname(__file__)
@@ -34,7 +34,7 @@ setup(
     license='MIT',
     description=description,
     long_description=long_description,
-    author='Konstantin Farrell',
+    author='Konstantin Farrell, Will Patterson',
     author_email='konstantinfarrell@gmail.com',
     install_requires=requirements,
     cmdclass={'install': PostInstall},
