@@ -141,7 +141,7 @@ class HotRC(object):
 
 def description():
     """Description for command line interface"""
-    return ''
+    return 'HotRC Command Line Interface. Used for quickly managing shell aliases.'
 
 def start(args=None, rcfile=None):
     """ Controls the command line interface for hotrc """
